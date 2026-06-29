@@ -7,11 +7,18 @@ dans un dashboard interactif.
 ---
 
 ## Aperçu
-Logs Linux ──► Collecteur ──► Parser ──► Base de données
-│
-Analyseur
-│
-Dashboard React ◄── SignalR (temps réel)
+
+```mermaid
+graph LR
+    A[Logs Linux] --> B[Collecteur]
+    B --> C[Parser]
+    C --> D[(Base de données)]
+    D --> E[Analyseur]
+    D --> F[SignalR]
+    E -. alertes .-> F
+    F --> G[Dashboard React]
+```
+
 ---
 
 ## Fonctionnalités
