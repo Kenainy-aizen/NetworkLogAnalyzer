@@ -10,14 +10,16 @@ dans un dashboard interactif.
 
 ```mermaid
 graph LR
-    A[Logs Linux] --> B[Collecteur]
+    A[Linux Logs] --> B[File Collector]
     B --> C[Parser]
-    C --> D[(Base de données)]
-    D --> E[Analyseur]
-    D --> F[SignalR]
-    E -. alertes .-> F
-    F --> G[Dashboard React]
+    C --> D[(Database)]
+    D --> E[Analyzer]
+    D --> F[SignalR Hub]
+    E -. alerts .-> F
+    F --> G[React Dashboard]
 ```
+
+*Légende — Logs Linux → Collecteur → Parser → Base de données → Analyseur / SignalR → Dashboard React*
 
 ---
 
