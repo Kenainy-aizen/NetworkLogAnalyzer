@@ -9,3 +9,7 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/refint/Storage.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.pdb
 /home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/ref/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/bin/Debug/net9.0/Storage.runtimeconfig.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.csproj.AssemblyReference.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.sourcelink.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.genruntimeconfig.cache

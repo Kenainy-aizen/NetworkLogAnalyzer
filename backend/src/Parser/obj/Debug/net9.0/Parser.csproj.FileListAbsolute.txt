@@ -9,3 +9,4 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/refint/Parser.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.pdb
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/ref/Parser.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.sourcelink.json

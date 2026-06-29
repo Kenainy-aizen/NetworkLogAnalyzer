@@ -15,3 +15,4 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/refint/Collector.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.pdb
 /home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/ref/Collector.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.sourcelink.json

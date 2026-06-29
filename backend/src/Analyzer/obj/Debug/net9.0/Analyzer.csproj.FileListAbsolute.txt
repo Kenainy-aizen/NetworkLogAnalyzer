@@ -13,3 +13,4 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/refint/Analyzer.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.pdb
 /home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/ref/Analyzer.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.sourcelink.json
