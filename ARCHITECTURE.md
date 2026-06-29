@@ -1,90 +1,198 @@
-# NetworkLogAnalyzer — Carte du projet
+# NetworkLogAnalyzer — Guide complet du projet
 
-## Stack
-- Backend  : ASP.NET Core 9 (C#)
-- Frontend : React + Vite
-- BDD      : SQLite (dev) → PostgreSQL (prod)
-- Temps réel : SignalR
+## Contexte
+Analyseur de logs réseau avec visualisation en temps réel.
+Surveille les fichiers de logs Linux (/var/log, journalctl)
+et affiche les événements dans un dashboard React.
 
-## Structure backend/src/
+## Environnement de développement
+- OS          : Arch Linux (EndeavourOS) + KDE Plasma
+- Backend     : .NET 9 SDK (global.json force la version 9)
+- Frontend    : Node.js + Vite + React
+- Éditeur     : Neovim (NvChad) ou Zed
+- Shell       : Zsh + Konsole
 
-### Api/
-Point d'entrée du backend.
-- Program.cs         → Configuration CORS, SignalR, DI
-- Controllers/       → Endpoints REST (GET /api/events, etc.)
-- Hubs/LogHub.cs     → Hub SignalR (push temps réel vers React)
-STATUS: [ ] À faire
-
-### Collector/
-Lit les sources de logs.
-- FileLogCollector.cs  → Surveille /var/log via FileSystemWatcher
-- NetworkCollector.cs  → Capture paquets via SharpPcap
-STATUS: [ ] À faire
-
-### Parser/
-Traduit le texte brut en objets C#.
-- JournalParser.cs   → Parse les lignes journalctl
-- IptablesParser.cs  → Parse les lignes iptables/firewall
-- Models/RawLogLine.cs
-STATUS: [ ] À faire
-
-### Storage/
-Base de données.
-- AppDbContext.cs     → Contexte Entity Framework
-- Models/NetworkEvent.cs → Modèle principal
-- Repositories/      → Accès aux données
-- Migrations/        → Générées automatiquement par EF
-STATUS: [ ] À faire
-
-### Analyzer/
-Détection d'anomalies.
-- Rules/IDetectionRule.cs    → Interface commune
-- Rules/PortScanRule.cs      → Détecte port scan
-- Rules/FloodRule.cs         → Détecte flood/DDoS
-- AnalyzerService.cs         → Applique toutes les règles
-STATUS: [ ] À faire
-
-## Structure frontend/src/
-
-### components/
-- EventTable.jsx     → Tableau des événements
-- AlertBanner.jsx    → Alerte temps réel
-- Charts/            → Graphes (Recharts)
-
-### hooks/
-- useSignalR.js      → Connexion temps réel
-- useEvents.js       → Chargement historique
-
-### services/
-- api.js             → Appels REST vers le backend
-
-STATUS: [ ] À faire
-
-## Ordre de développement
-[x] 1. Créer la solution et les projets
-[ ] 2. Storage  → NetworkEvent + AppDbContext + SQLite
-[ ] 3. Parser   → JournalParser (lire journalctl)
-[ ] 4. Collector → FileLogCollector
-[ ] 5. Api      → Program.cs + GET /api/events
-[ ] 6. Frontend → Tableau basique
-[ ] 7. SignalR  → Temps réel
-[ ] 8. Analyzer → Règles de détection
-[ ] 9. Frontend → Graphes + alertes
+## Stack technique
+- Backend     : ASP.NET Core 9 (C#)
+- Frontend    : React 18 + Vite
+- BDD         : SQLite (dev) → PostgreSQL (prod)
+- ORM         : Entity Framework Core 9
+- Temps réel  : SignalR (WebSocket)
+- HTTP client : Axios (côté React)
+- Graphes     : Recharts
 
 ## Ports en développement
 - Backend  : http://localhost:5000
 - Frontend : http://localhost:5173
+- Swagger  : http://localhost:5000/swagger
+
+---
+
+## Structure complète des fichiers
+
+### backend/
+backend/
+├── global.json                         ← Force .NET 9
+├── NetworkLogAnalyzer.sln
+└── src/
+├── Api/                            ← Projet WebAPI (point d'entrée)
+│   ├── Api.csproj
+│   ├── Program.cs                  ← DI, CORS, SignalR, Swagger
+│   ├── Controllers/
+│   │   └── EventsController.cs     ← GET /api/events, GET /api/events/{id}
+│   └── Hubs/
+│       └── LogHub.cs               ← Hub SignalR → push vers React
+│
+├── Collector/                      ← Lit les sources de logs
+│   ├── Collector.csproj
+│   ├── FileLogCollector.cs         ← FileSystemWatcher sur /var/log
+│   └── NetworkCollector.cs         ← SharpPcap (paquets réseau live)
+│
+├── Parser/                         ← Traduit texte brut → objets C#
+│   ├── Parser.csproj
+│   ├── ILogParser.cs               ← Interface commune à tous les parsers
+│   ├── JournalParser.cs            ← Parse lignes journalctl/syslog
+│   ├── IptablesParser.cs           ← Parse lignes firewall iptables
+│   └── Models/
+│       └── RawLogLine.cs           ← Ligne brute avant parsing
+│
+├── Storage/                        ← Base de données
+│   ├── Storage.csproj
+│   ├── AppDbContext.cs             ← DbContext Entity Framework
+│   ├── Models/
+│   │   └── NetworkEvent.cs         ← Modèle principal (voir détail ci-dessous)
+│   ├── Repositories/
+│   │   ├── IEventRepository.cs     ← Interface
+│   │   └── EventRepository.cs      ← Implémentation SQLite
+│   └── Migrations/                 ← Générées par "dotnet ef migrations add"
+│
+└── Analyzer/                       ← Détecte les anomalies
+├── Analyzer.csproj
+├── AnalyzerService.cs          ← Applique toutes les règles
+└── Rules/
+├── IDetectionRule.cs       ← Interface commune
+├── PortScanRule.cs         ← Même IP, N ports différents en < Xs
+└── FloodRule.cs            ← Trop de paquets par seconde
+
+### frontend/
+frontend/
+├── package.json
+├── vite.config.js
+└── src/
+├── main.jsx
+├── App.jsx
+├── services/
+│   └── api.js                      ← Axios → appels REST backend
+├── hooks/
+│   ├── useSignalR.js               ← Connexion SignalR temps réel
+│   └── useEvents.js                ← Chargement historique événements
+└── components/
+├── EventTable.jsx              ← Tableau paginé des événements
+├── AlertBanner.jsx             ← Bandeau alerte temps réel
+└── Charts/
+├── TimelineChart.jsx       ← Événements dans le temps
+├── TopIpsChart.jsx         ← Bar chart top IPs
+└── ProtocolPieChart.jsx    ← Répartition des protocoles
+---
+
+## Modèle principal : NetworkEvent
+
+```csharp
+public class NetworkEvent
+{
+    public int Id { get; set; }
+    public DateTime Timestamp { get; set; }
+    public string SourceIp { get; set; }
+    public string? DestinationIp { get; set; }
+    public string Protocol { get; set; }    // TCP, UDP, SSH...
+    public int? Port { get; set; }
+    public string Action { get; set; }      // ALLOW, BLOCK, CONNECT
+    public string Severity { get; set; }    // INFO, WARNING, CRITICAL
+    public string RawData { get; set; }     // Ligne brute originale
+    public string Source { get; set; }      // "journalctl", "iptables", "pcap"
+}
+```
+
+---
+
+## Dépendances entre projets
+Api → Collector, Parser, Storage, Analyzer
+Collector → Parser, Storage
+Analyzer → Storage
+Parser → (aucune dépendance interne)
+Storage → (aucune dépendance interne)
+---
+
+## Packages NuGet installés
+
+| Projet   | Package                                      | Rôle                  |
+|----------|----------------------------------------------|-----------------------|
+| Storage  | Microsoft.EntityFrameworkCore                | ORM                   |
+| Storage  | Microsoft.EntityFrameworkCore.Sqlite         | Driver SQLite         |
+| Storage  | Microsoft.EntityFrameworkCore.Design         | Migrations CLI        |
+| Api      | Microsoft.AspNetCore.SignalR                 | Temps réel WebSocket  |
+| Api      | Swashbuckle.AspNetCore                       | Swagger UI            |
+| Collector| SharpPcap                                    | Capture paquets réseau|
+
+---
+
+## Packages NPM installés (frontend)
+
+| Package                  | Rôle                            |
+|--------------------------|---------------------------------|
+| @microsoft/signalr       | Connexion temps réel SignalR    |
+| axios                    | Appels REST vers le backend     |
+| recharts                 | Graphes (timeline, bar, pie)    |
+| react-router-dom         | Navigation entre pages          |
+
+---
+
+## Ordre de développement
+
+- [x] 1. Créer la solution et les 5 projets backend
+- [x] 2. Relier les dépendances entre projets (dotnet add reference)
+- [ ] 3. Storage  → NetworkEvent.cs + AppDbContext.cs + SQLite
+- [ ] 4. Parser   → ILogParser.cs + JournalParser.cs
+- [ ] 5. Collector → FileLogCollector.cs
+- [ ] 6. Api      → Program.cs + EventsController.cs
+- [ ] 7. Frontend → Vite + React + tableau basique
+- [ ] 8. SignalR  → LogHub.cs + useSignalR.js
+- [ ] 9. Analyzer → IDetectionRule + PortScanRule + FloodRule
+- [ ] 10. Frontend → Graphes + alertes
+
+---
 
 ## Commandes utiles
+
+```bash
 # Lancer le backend
-cd ~/NetworkLogAnalyzer/backend && dotnet run --project src/Api
+cd ~/NetworkLogAnalyzer/backend
+dotnet run --project src/Api
 
 # Lancer le frontend
-cd ~/NetworkLogAnalyzer/frontend && npm run dev
+cd ~/NetworkLogAnalyzer/frontend
+npm run dev
 
-# Ajouter une migration EF
-cd ~/NetworkLogAnalyzer/backend
-dotnet ef migrations add NomDeLaMigration --project src/Storage --startup-project src/Api
+# Ajouter une migration EF Core
+dotnet ef migrations add NomMigration \
+  --project src/Storage \
+  --startup-project src/Api
 
-# Appliquer la migration
-dotnet ef database update --project src/Storage --startup-project src/Api
+# Appliquer la migration (crée logs.db)
+dotnet ef database update \
+  --project src/Storage \
+  --startup-project src/Api
+
+# Builder tout le backend
+dotnet build
+
+# Voir les logs en direct sur Linux
+journalctl -f
+```
+
+---
+
+## Comment reprendre ce projet avec une IA
+
+Colle ce fichier en entier au début de ta conversation, puis dis :
+"On en est à l'étape X, on continue."
