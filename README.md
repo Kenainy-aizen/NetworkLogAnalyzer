@@ -121,6 +121,8 @@ sudo dotnet run --project src/Api
 ---
 
 ## Structure du projet
+
+```
 NetworkLogAnalyzer/
 ├── README.md
 ├── ARCHITECTURE.md          ← Guide technique complet
@@ -138,6 +140,8 @@ NetworkLogAnalyzer/
         ├── components/      ← Tableau, graphes, alertes
         ├── hooks/           ← useSignalR, useEvents
         └── services/        ← Appels API REST
+```
+
 ---
 
 ## API REST
