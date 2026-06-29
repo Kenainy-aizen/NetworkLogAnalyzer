@@ -134,10 +134,10 @@ NetworkLogAnalyzer/
 │       ├── Storage/         ← Base de données (EF Core)
 │       └── Analyzer/        ← Détection d'anomalies
 └── frontend/
-└── src/
-├── components/      ← Tableau, graphes, alertes
-├── hooks/           ← useSignalR, useEvents
-└── services/        ← Appels API REST
+    └── src/
+        ├── components/      ← Tableau, graphes, alertes
+        ├── hooks/           ← useSignalR, useEvents
+        └── services/        ← Appels API REST
 ---
 
 ## API REST
