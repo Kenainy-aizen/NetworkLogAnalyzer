@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "M8WUsLgUAFA=",
+  "success": true,
+  "projectFilePath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/Storage.csproj",
+  "expectedPackageFiles": [
+    "/home/kenainy/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.17/microsoft.aspnetcore.app.ref.9.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

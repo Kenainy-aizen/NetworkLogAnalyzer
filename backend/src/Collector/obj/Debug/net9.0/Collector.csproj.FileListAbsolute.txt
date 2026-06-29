@@ -1,0 +1,17 @@
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Collector.deps.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Collector.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Collector.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Parser.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Parser.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/bin/Debug/net9.0/Storage.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.csproj.AssemblyReference.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.GeneratedMSBuildEditorConfig.editorconfig
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.AssemblyInfoInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.AssemblyInfo.cs
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.csproj.CoreCompileInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.csproj.Up2Date
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/refint/Collector.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/Collector.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/obj/Debug/net9.0/ref/Collector.dll

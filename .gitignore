@@ -1,0 +1,95 @@
+# ──────────────────────────────────────────────
+#  .NET / ASP.NET Core
+# ──────────────────────────────────────────────
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User / project-specific
+*.user
+*.userosscache
+*.suo
+*.sln.doc
+*.userprefs
+*.csproj.user
+*.dbmdl
+*.jfm
+
+# NuGet
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+.nuget/
+packages/
+
+# Visual Studio
+.vs/
+*.sln.ide/
+*.sln.ide/
+*.sln.DotSettings.user
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+_ReSharper*/
+
+# ──────────────────────────────────────────────
+#  Node.js / React / Vite
+# ──────────────────────────────────────────────
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.lh/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ──────────────────────────────────────────────
+#  OS
+# ──────────────────────────────────────────────
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# ──────────────────────────────────────────────
+#  Divers
+# ──────────────────────────────────────────────
+
+*.log
+*.tmp
+*.bak
+*.orig

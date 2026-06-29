@@ -1,0 +1,238 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "Microsoft.AspNetCore.OpenApi/9.0.17": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.OpenApi": "1.6.17"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.OpenApi/1.6.17": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Analyzer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Storage": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Analyzer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Analyzer.dll": {}
+        }
+      },
+      "Collector/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Parser": "1.0.0",
+          "Storage": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Collector.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Collector.dll": {}
+        }
+      },
+      "Parser/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Parser.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Parser.dll": {}
+        }
+      },
+      "Storage/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Storage.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Storage.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.AspNetCore.OpenApi/9.0.17": {
+      "sha512": "+zcqQ/JecNl4G1hC2mrJ8qDolJv17W3grToEqcGZGqa3cXWaCjA9KTdigU0WVK3LWI0TtOG/Q/joXRdKqFhB9Q==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.openapi/9.0.17",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll",
+        "lib/net9.0/Microsoft.AspNetCore.OpenApi.xml",
+        "microsoft.aspnetcore.openapi.9.0.17.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.nuspec"
+      ]
+    },
+    "Microsoft.OpenApi/1.6.17": {
+      "sha512": "Le+kehlmrlQfuDFUt1zZ2dVwrhFQtKREdKBo+rexOwaCoYP0/qpgT9tLxCsZjsgR5Itk1UKPcbgO+FyaNid/bA==",
+      "type": "package",
+      "path": "microsoft.openapi/1.6.17",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/netstandard2.0/Microsoft.OpenApi.dll",
+        "lib/netstandard2.0/Microsoft.OpenApi.pdb",
+        "lib/netstandard2.0/Microsoft.OpenApi.xml",
+        "microsoft.openapi.1.6.17.nupkg.sha512",
+        "microsoft.openapi.nuspec"
+      ]
+    },
+    "Analyzer/1.0.0": {
+      "type": "project",
+      "path": "../Analyzer/Analyzer.csproj",
+      "msbuildProject": "../Analyzer/Analyzer.csproj"
+    },
+    "Collector/1.0.0": {
+      "type": "project",
+      "path": "../Collector/Collector.csproj",
+      "msbuildProject": "../Collector/Collector.csproj"
+    },
+    "Parser/1.0.0": {
+      "type": "project",
+      "path": "../Parser/Parser.csproj",
+      "msbuildProject": "../Parser/Parser.csproj"
+    },
+    "Storage/1.0.0": {
+      "type": "project",
+      "path": "../Storage/Storage.csproj",
+      "msbuildProject": "../Storage/Storage.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "Analyzer >= 1.0.0",
+      "Collector >= 1.0.0",
+      "Microsoft.AspNetCore.OpenApi >= 9.0.17",
+      "Parser >= 1.0.0",
+      "Storage >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/home/kenainy/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/kenainy/NetworkLogAnalyzer/backend/src/Api/Api.csproj",
+      "projectName": "Api",
+      "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Api/Api.csproj",
+      "packagesPath": "/home/kenainy/.nuget/packages/",
+      "outputPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Api/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/kenainy/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {
+            "/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/Analyzer.csproj": {
+              "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/Analyzer.csproj"
+            },
+            "/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/Collector.csproj": {
+              "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/Collector.csproj"
+            },
+            "/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/Parser.csproj": {
+              "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/Parser.csproj"
+            },
+            "/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/Storage.csproj": {
+              "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/Storage.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.100"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.OpenApi": {
+            "target": "Package",
+            "version": "[9.0.17, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[9.0.17, 9.0.17]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.118/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

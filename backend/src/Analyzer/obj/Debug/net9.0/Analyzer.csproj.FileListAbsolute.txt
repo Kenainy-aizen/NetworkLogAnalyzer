@@ -1,0 +1,15 @@
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/bin/Debug/net9.0/Analyzer.deps.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/bin/Debug/net9.0/Analyzer.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/bin/Debug/net9.0/Analyzer.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/bin/Debug/net9.0/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/bin/Debug/net9.0/Storage.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.csproj.AssemblyReference.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.GeneratedMSBuildEditorConfig.editorconfig
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.AssemblyInfoInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.AssemblyInfo.cs
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.csproj.CoreCompileInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.csproj.Up2Date
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/refint/Analyzer.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/Analyzer.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Analyzer/obj/Debug/net9.0/ref/Analyzer.dll

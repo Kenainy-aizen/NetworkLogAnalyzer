@@ -1,0 +1,11 @@
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/bin/Debug/net9.0/Parser.deps.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/bin/Debug/net9.0/Parser.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/bin/Debug/net9.0/Parser.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.GeneratedMSBuildEditorConfig.editorconfig
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.AssemblyInfoInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.AssemblyInfo.cs
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.csproj.CoreCompileInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/refint/Parser.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/ref/Parser.dll

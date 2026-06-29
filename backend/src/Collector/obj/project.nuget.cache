@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "1FrWHK3QHvY=",
+  "success": true,
+  "projectFilePath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/Collector.csproj",
+  "expectedPackageFiles": [
+    "/home/kenainy/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.17/microsoft.aspnetcore.app.ref.9.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

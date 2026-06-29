@@ -1,0 +1,11 @@
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/bin/Debug/net9.0/Storage.deps.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/bin/Debug/net9.0/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/bin/Debug/net9.0/Storage.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.GeneratedMSBuildEditorConfig.editorconfig
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.AssemblyInfoInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.AssemblyInfo.cs
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.csproj.CoreCompileInputs.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/refint/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/Storage.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/obj/Debug/net9.0/ref/Storage.dll
