@@ -10,3 +10,7 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.pdb
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/ref/Parser.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.sourcelink.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/bin/Debug/net9.0/Storage.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/bin/Debug/net9.0/Storage.pdb
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.csproj.AssemblyReference.cache
+/home/kenainy/NetworkLogAnalyzer/backend/src/Parser/obj/Debug/net9.0/Parser.csproj.Up2Date

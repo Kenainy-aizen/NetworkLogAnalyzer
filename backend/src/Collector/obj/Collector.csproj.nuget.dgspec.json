@@ -97,7 +97,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/Storage.csproj": {
+                "projectPath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Storage/Storage.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

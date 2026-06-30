@@ -792,6 +792,9 @@
         }
       },
       "Parser/1.0.0": {
+        "dependencies": {
+          "Storage": "1.0.0"
+        },
         "runtime": {
           "Parser.dll": {
             "assemblyVersion": "1.0.0",
