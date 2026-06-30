@@ -151,12 +151,12 @@ Storage → (aucune dépendance interne)
 
 - [x] 1. Créer la solution et les 5 projets backend
 - [x] 2. Relier les dépendances entre projets (dotnet add reference)
-- [ ] 3. Storage  → NetworkEvent.cs + AppDbContext.cs + SQLite
-- [ ] 4. Parser   → ILogParser.cs + JournalParser.cs
-- [ ] 5. Collector → FileLogCollector.cs
-- [ ] 6. Api      → Program.cs + EventsController.cs
+- [x] 3. Storage  → NetworkEvent.cs + AppDbContext.cs + SQLite
+- [x] 4. Parser   → ILogParser.cs + JournalParser.cs
+- [x] 5. Collector → FileLogCollector.cs
+- [x] 6. Api      → Program.cs + EventsController.cs
 - [ ] 7. Frontend → Vite + React + tableau basique
-- [ ] 8. SignalR  → LogHub.cs + useSignalR.js
+- [x] 8. SignalR  → LogHub.cs + useSignalR.js
 - [ ] 9. Analyzer → IDetectionRule + PortScanRule + FloodRule
 - [ ] 10. Frontend → Graphes + alertes
 
