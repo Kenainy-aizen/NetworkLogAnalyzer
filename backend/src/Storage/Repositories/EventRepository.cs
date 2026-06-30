@@ -7,11 +7,16 @@ public class EventRepository : IEventRepository
 {
     private readonly AppDbContext _db;
     private readonly INotifier? _notifier;
+    private readonly IAnalysisTrigger? _analysisTrigger;
 
-    public EventRepository(AppDbContext db, INotifier? notifier = null)
+    public EventRepository(
+        AppDbContext db,
+        INotifier? notifier = null,
+        IAnalysisTrigger? analysisTrigger = null)
     {
         _db = db;
         _notifier = notifier;
+        _analysisTrigger = analysisTrigger;
     }
 
     public async Task AddAsync(NetworkEvent networkEvent)
@@ -22,6 +27,12 @@ public class EventRepository : IEventRepository
         if (_notifier is not null)
         {
             await _notifier.NotifyNewEventAsync(networkEvent);
+        }
+
+        // On n'analyse pas les alertes elles-mêmes, pour éviter une boucle infinie
+        if (_analysisTrigger is not null && networkEvent.Source != "analyzer")
+        {
+            await _analysisTrigger.TriggerAnalysisAsync(networkEvent);
         }
     }
 

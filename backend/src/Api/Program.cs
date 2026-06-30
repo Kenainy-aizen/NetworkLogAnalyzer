@@ -1,9 +1,11 @@
-using Api;
 using Microsoft.EntityFrameworkCore;
 using Storage;
 using Storage.Repositories;
 using Parser;
 using Collector;
+using Analyzer;
+using Analyzer.Rules;
+using Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +25,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<INotifier, SignalRNotifier>();
+builder.Services.AddScoped<IAnalysisTrigger, AnalysisTrigger>();
 
 builder.Services.AddScoped<ILogParser, JournalParser>();
 builder.Services.AddScoped<ILogParser, IptablesParser>();
+
+builder.Services.AddScoped<IDetectionRule, SshBruteForceRule>();
+builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();
 

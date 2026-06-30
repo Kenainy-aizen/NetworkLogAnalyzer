@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
 
-const HUB_URL = 'http://localhost:5000/hubs/logs'\;
+const HUB_URL = 'http://localhost:5000/hubs/logs';
 
 export function useSignalR(onNewEvent) {
   const connectionRef = useRef(null);

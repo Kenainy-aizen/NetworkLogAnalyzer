@@ -155,7 +155,7 @@ Storage → (aucune dépendance interne)
 - [x] 4. Parser   → ILogParser.cs + JournalParser.cs
 - [x] 5. Collector → FileLogCollector.cs
 - [x] 6. Api      → Program.cs + EventsController.cs
-- [ ] 7. Frontend → Vite + React + tableau basique
+- [x] 7. Frontend → Vite + React + tableau basique
 - [x] 8. SignalR  → LogHub.cs + useSignalR.js
 - [ ] 9. Analyzer → IDetectionRule + PortScanRule + FloodRule
 - [ ] 10. Frontend → Graphes + alertes
