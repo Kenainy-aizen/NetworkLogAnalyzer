@@ -6,16 +6,23 @@ namespace Storage.Repositories;
 public class EventRepository : IEventRepository
 {
     private readonly AppDbContext _db;
+    private readonly INotifier? _notifier;
 
-    public EventRepository(AppDbContext db)
+    public EventRepository(AppDbContext db, INotifier? notifier = null)
     {
         _db = db;
+        _notifier = notifier;
     }
 
     public async Task AddAsync(NetworkEvent networkEvent)
     {
         _db.NetworkEvents.Add(networkEvent);
         await _db.SaveChangesAsync();
+
+        if (_notifier is not null)
+        {
+            await _notifier.NotifyNewEventAsync(networkEvent);
+        }
     }
 
     public async Task<IEnumerable<NetworkEvent>> GetAllAsync(

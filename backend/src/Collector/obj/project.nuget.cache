@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "hluXweqzyD4=",
+  "dgSpecHash": "e1d/8JSmMwk=",
   "success": true,
   "projectFilePath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Collector/Collector.csproj",
   "expectedPackageFiles": [
+    "/home/kenainy/.nuget/packages/microsoft.aspnetcore.connections.abstractions/9.0.0/microsoft.aspnetcore.connections.abstractions.9.0.0.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/microsoft.aspnetcore.signalr.common/9.0.0/microsoft.aspnetcore.signalr.common.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.data.sqlite.core/9.0.0/microsoft.data.sqlite.core.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.entityframeworkcore/9.0.0/microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.0/microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512",
@@ -18,6 +20,7 @@
     "/home/kenainy/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.0/microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.dependencymodel/9.0.0/microsoft.extensions.dependencymodel.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.diagnostics.abstractions/9.0.0/microsoft.extensions.diagnostics.abstractions.9.0.0.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/microsoft.extensions.features/9.0.0/microsoft.extensions.features.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.fileproviders.abstractions/9.0.0/microsoft.extensions.fileproviders.abstractions.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.hosting.abstractions/9.0.0/microsoft.extensions.hosting.abstractions.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.logging/9.0.0/microsoft.extensions.logging.9.0.0.nupkg.sha512",
