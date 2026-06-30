@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Storage;
 using Storage.Repositories;
+using Parser;
+using Collector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Injection de dépendances
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+
+// Parsers (le Collector les utilisera tous)
+builder.Services.AddScoped<ILogParser, JournalParser>();
+builder.Services.AddScoped<ILogParser, IptablesParser>();
+
+// Collector en arrière-plan
+builder.Services.AddHostedService<CollectorBackgroundService>();
 
 // SignalR (temps réel)
 builder.Services.AddSignalR();
