@@ -31,6 +31,7 @@ builder.Services.AddScoped<ILogParser, JournalParser>();
 builder.Services.AddScoped<ILogParser, IptablesParser>();
 
 builder.Services.AddScoped<IDetectionRule, SshBruteForceRule>();
+builder.Services.AddScoped<IDetectionRule, PortScanRule>();
 builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();

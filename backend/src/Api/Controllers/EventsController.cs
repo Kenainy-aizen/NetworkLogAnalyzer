@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Storage;
 using Storage.Models;
 using Storage.Repositories;
 
@@ -9,16 +10,14 @@ namespace Api.Controllers;
 public class EventsController : ControllerBase
 {
     private readonly IEventRepository _repo;
+    private readonly IAnalysisTrigger _analysisTrigger;
 
-    public EventsController(IEventRepository repo)
+    public EventsController(IEventRepository repo, IAnalysisTrigger analysisTrigger)
     {
         _repo = repo;
+        _analysisTrigger = analysisTrigger;
     }
 
-    // GET /api/events
-    // GET /api/events?severity=CRITICAL
-    // GET /api/events?sourceIp=192.168.1.5
-    // GET /api/events?limit=50
     [HttpGet]
     public async Task<IActionResult> GetAll(
         [FromQuery] string? severity,
@@ -29,7 +28,6 @@ public class EventsController : ControllerBase
         return Ok(events);
     }
 
-    // GET /api/events/5
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -38,7 +36,6 @@ public class EventsController : ControllerBase
         return Ok(ev);
     }
 
-    // GET /api/events/stats
     [HttpGet("stats")]
     public async Task<IActionResult> GetStats()
     {
@@ -46,7 +43,6 @@ public class EventsController : ControllerBase
         return Ok(stats);
     }
 
-    // POST /api/events  (pour tester manuellement)
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] NetworkEvent networkEvent)
     {

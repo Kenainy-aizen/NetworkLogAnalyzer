@@ -157,8 +157,8 @@ Storage → (aucune dépendance interne)
 - [x] 6. Api      → Program.cs + EventsController.cs
 - [x] 7. Frontend → Vite + React + tableau basique
 - [x] 8. SignalR  → LogHub.cs + useSignalR.js
-- [ ] 9. Analyzer → IDetectionRule + PortScanRule + FloodRule
-- [ ] 10. Frontend → Graphes + alertes
+- [x] 9. Analyzer (SshBruteForceRule + PortScanRule validées)
+- [x] 10. Frontend → Graphes + alertes
 
 ---
 

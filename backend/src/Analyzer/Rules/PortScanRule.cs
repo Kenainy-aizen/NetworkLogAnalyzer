@@ -3,43 +3,46 @@ using Storage.Models;
 
 namespace Analyzer.Rules;
 
-public class SshBruteForceRule : IDetectionRule
+public class PortScanRule : IDetectionRule
 {
-    public string Name => "SSH Brute Force";
+    public string Name => "Port Scan";
 
-    private const int Threshold = 5;
-    private static readonly TimeSpan Window = TimeSpan.FromMinutes(1);
+    private const int DistinctPortThreshold = 10;
+    private static readonly TimeSpan Window = TimeSpan.FromSeconds(30);
     private static readonly TimeSpan Cooldown = TimeSpan.FromMinutes(2);
 
-    // Mémorise la dernière alerte émise par IP, pour éviter le spam
     private static readonly ConcurrentDictionary<string, DateTime> _lastAlertByIp = new();
 
     public Task<NetworkEvent?> EvaluateAsync(NetworkEvent newEvent, IEnumerable<NetworkEvent> recentEvents)
     {
-        if (newEvent.Protocol != "SSH" || newEvent.Action != "BLOCK")
+        // On s'intéresse à toute tentative bloquée ayant un port défini
+        if (newEvent.Action != "BLOCK" || newEvent.Port is null)
+            return Task.FromResult<NetworkEvent?>(null);
+
+        if (string.IsNullOrEmpty(newEvent.SourceIp))
             return Task.FromResult<NetworkEvent?>(null);
 
         var cutoff = DateTime.UtcNow - Window;
 
-        var attemptsCount = recentEvents.Count(e =>
-            e.Protocol == "SSH" &&
-            e.Action == "BLOCK" &&
-            e.SourceIp == newEvent.SourceIp &&
-            e.Timestamp >= cutoff
-        );
+        // Compter les ports DISTINCTS touchés par cette IP dans la fenêtre
+        var distinctPorts = recentEvents
+            .Where(e =>
+                e.Action == "BLOCK" &&
+                e.SourceIp == newEvent.SourceIp &&
+                e.Port is not null &&
+                e.Timestamp >= cutoff)
+            .Select(e => e.Port!.Value)
+            .Distinct()
+            .Count();
 
-        if (attemptsCount < Threshold)
+        if (distinctPorts < DistinctPortThreshold)
             return Task.FromResult<NetworkEvent?>(null);
 
-        // Vérifier le cooldown pour cette IP
         var now = DateTime.UtcNow;
         if (_lastAlertByIp.TryGetValue(newEvent.SourceIp, out var lastAlert))
         {
             if (now - lastAlert < Cooldown)
-            {
-                // Une alerte a déjà été émise récemment pour cette IP, on n'en crée pas une nouvelle
                 return Task.FromResult<NetworkEvent?>(null);
-            }
         }
 
         _lastAlertByIp[newEvent.SourceIp] = now;
@@ -52,7 +55,7 @@ public class SshBruteForceRule : IDetectionRule
             Action    = "DETECTED",
             Severity  = "CRITICAL",
             Source    = "analyzer",
-            RawData   = $"Brute force SSH détecté : {attemptsCount} tentatives depuis {newEvent.SourceIp} en moins d'une minute.",
+            RawData   = $"Port scan détecté : {distinctPorts} ports différents touchés par {newEvent.SourceIp} en moins de 30 secondes.",
         };
 
         return Task.FromResult<NetworkEvent?>(alert);

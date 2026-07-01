@@ -1,19 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getEvents } from './services/api';
 import { useSignalR } from './hooks/useSignalR';
+import { useToast } from './hooks/useToast';
 import EventTable from './components/EventTable';
 import StatsCards from './components/StatsCards';
+import TimelineChart from './components/Charts/TimelineChart';
+import TopIpsChart from './components/Charts/TopIpsChart';
+import ToastNotification from './components/ToastNotification';
 
 function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('ALL');
+  const { toasts, addToast, dismissToast } = useToast();
 
-  // Charger l'historique une seule fois au démarrage
   const loadEvents = async () => {
     try {
-      const data = await getEvents({ limit: 100 });
+      const data = await getEvents({ limit: 200 });
       setEvents(data);
       setError(null);
     } catch (err) {
@@ -27,10 +31,14 @@ function App() {
     loadEvents();
   }, []);
 
-  // Ajouter un nouvel événement reçu en temps réel, en tête de liste
   const handleNewEvent = useCallback((newEvent) => {
     setEvents((prev) => [newEvent, ...prev].slice(0, 200));
-  }, []);
+
+    // Déclencher un toast uniquement pour les alertes CRITICAL
+    if (newEvent.severity === 'CRITICAL') {
+      addToast(newEvent);
+    }
+  }, [addToast]);
 
   const connected = useSignalR(handleNewEvent);
 
@@ -55,6 +63,17 @@ function App() {
       )}
 
       <StatsCards events={events} />
+
+      <div className="mb-3 grid grid-cols-2 gap-3">
+        <div className="rounded border border-zinc-800 bg-zinc-900 p-4">
+          <div className="mb-2 text-sm font-medium">Timeline des événements</div>
+          <TimelineChart events={events} />
+        </div>
+        <div className="rounded border border-zinc-800 bg-zinc-900 p-4">
+          <div className="mb-2 text-sm font-medium">Top IPs sources</div>
+          <TopIpsChart events={events} />
+        </div>
+      </div>
 
       <div className="overflow-hidden rounded border border-zinc-800 bg-zinc-900">
         <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3 text-sm font-medium">
@@ -82,6 +101,8 @@ function App() {
           <EventTable events={filteredEvents} />
         )}
       </div>
+
+      <ToastNotification toasts={toasts} onDismiss={dismissToast} />
     </div>
   );
 }
