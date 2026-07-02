@@ -37,6 +37,7 @@ builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();
 builder.Services.AddHostedService<NginxLogCollector>();
+builder.Services.AddHostedService<ApacheLogCollector>();
 
 builder.Services.AddSignalR();
 
