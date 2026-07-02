@@ -36,6 +36,7 @@ builder.Services.AddScoped<IDetectionRule, PortScanRule>();
 builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();
+builder.Services.AddHostedService<NginxLogCollector>();
 
 builder.Services.AddSignalR();
 
