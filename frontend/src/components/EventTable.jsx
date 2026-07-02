@@ -10,7 +10,13 @@ function actionClass(action) {
   return action === 'BLOCK' ? 'text-red-400' : 'text-green-400';
 }
 
-export default function EventTable({ events }) {
+function displayIp(ip) {
+  if (!ip || ip === '') return 'localhost';
+  if (ip === '::1' || ip === '127.0.0.1') return 'localhost (::1)';
+  return ip;
+}
+
+export default function EventTable({ events, onIpClick }) {
   if (events.length === 0) {
     return (
       <div className="py-16 text-center text-sm text-zinc-500">
@@ -23,12 +29,9 @@ export default function EventTable({ events }) {
     <table className="w-full text-sm">
       <thead>
         <tr className="border-b border-zinc-800">
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Heure</th>
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Source IP</th>
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Protocole</th>
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Port</th>
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Action</th>
-          <th className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">Sévérité</th>
+          {['Heure', 'Source IP', 'Protocole', 'Port', 'Action', 'Sévérité'].map(h => (
+            <th key={h} className="px-4 py-2 text-left text-xs font-medium uppercase tracking-wide text-zinc-500">{h}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
@@ -37,7 +40,14 @@ export default function EventTable({ events }) {
             <td className="px-4 py-2 font-mono text-xs text-zinc-300">
               {new Date(event.timestamp).toLocaleTimeString()}
             </td>
-            <td className="px-4 py-2 font-mono text-xs text-zinc-300">{event.sourceIp || '—'}</td>
+            <td className="px-4 py-2">
+              <button
+                onClick={() => onIpClick?.(event.sourceIp || 'localhost')}
+                className="font-mono text-xs text-blue-400 hover:underline"
+              >
+                {displayIp(event.sourceIp)}
+              </button>
+            </td>
             <td className="px-4 py-2 text-zinc-300">{event.protocol}</td>
             <td className="px-4 py-2 font-mono text-xs text-zinc-300">{event.port ?? '—'}</td>
             <td className={`px-4 py-2 font-medium ${actionClass(event.action)}`}>{event.action}</td>

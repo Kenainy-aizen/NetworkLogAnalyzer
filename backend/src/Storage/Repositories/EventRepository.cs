@@ -25,15 +25,10 @@ public class EventRepository : IEventRepository
         await _db.SaveChangesAsync();
 
         if (_notifier is not null)
-        {
             await _notifier.NotifyNewEventAsync(networkEvent);
-        }
 
-        // On n'analyse pas les alertes elles-mêmes, pour éviter une boucle infinie
         if (_analysisTrigger is not null && networkEvent.Source != "analyzer")
-        {
             await _analysisTrigger.TriggerAnalysisAsync(networkEvent);
-        }
     }
 
     public async Task<IEnumerable<NetworkEvent>> GetAllAsync(
@@ -47,7 +42,17 @@ public class EventRepository : IEventRepository
             query = query.Where(e => e.Severity == severity);
 
         if (!string.IsNullOrEmpty(sourceIp))
-            query = query.Where(e => e.SourceIp == sourceIp);
+        {
+            // "localhost" → chercher les IPs locales : vide, "localhost", "127.0.0.1", "::1"
+            if (sourceIp == "localhost")
+                query = query.Where(e =>
+                    e.SourceIp == "" ||
+                    e.SourceIp == "localhost" ||
+                    e.SourceIp == "127.0.0.1" ||
+                    e.SourceIp == "::1");
+            else
+                query = query.Where(e => e.SourceIp == sourceIp);
+        }
 
         return await query
             .OrderByDescending(e => e.Timestamp)

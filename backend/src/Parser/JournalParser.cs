@@ -109,6 +109,7 @@ public class JournalParser : ILogParser
         var sudo = SudoRegex.Match(message);
         if (service.Contains("sudo") && sudo.Success)
         {
+            networkEvent.SourceIp  = "localhost";
             networkEvent.Protocol = "SUDO";
             networkEvent.Action   = "ALLOW";
             networkEvent.Severity = "WARNING";
