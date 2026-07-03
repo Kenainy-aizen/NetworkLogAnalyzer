@@ -44,7 +44,7 @@ public class FirewalldParser : ILogParser
         return new NetworkEvent
         {
             Timestamp     = rawLine.ReceivedAt,
-            SourceIp      = match.Groups["src"].Value,
+            SourceIp      = IpNormalizer.Normalize(match.Groups["src"].Value),
             DestinationIp = dst,
             Protocol      = match.Groups["proto"].Value.ToUpper(),
             Port          = int.TryParse(match.Groups["dpt"].Value, out var port) ? port : null,

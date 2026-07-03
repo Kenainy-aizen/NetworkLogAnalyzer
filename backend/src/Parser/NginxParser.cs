@@ -53,7 +53,7 @@ public class NginxParser : ILogParser
         return new NetworkEvent
         {
             Timestamp = rawLine.ReceivedAt,
-            SourceIp  = ip,
+            SourceIp  = IpNormalizer.Normalize(ip),
             Protocol  = $"HTTP {method}",
             Port      = 80,
             Action    = action,

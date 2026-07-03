@@ -56,7 +56,7 @@ public class JournalParserTests
         Assert.NotNull(result);
         Assert.Equal("SSH", result.Protocol);
         Assert.Equal("BLOCK", result.Action);
-        Assert.Equal("::1", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class JournalParserTests
         Assert.NotNull(result);
         Assert.Equal("SSH", result.Protocol);
         Assert.Equal("BLOCK", result.Action);
-        Assert.Equal("::1", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
         Assert.Equal(39196, result.Port);
     }
 

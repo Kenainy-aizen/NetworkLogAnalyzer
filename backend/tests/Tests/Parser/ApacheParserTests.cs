@@ -41,7 +41,7 @@ public class ApacheParserTests
 
         Assert.NotNull(result);
         Assert.Equal("WARNING", result.Severity);
-        Assert.Equal("::1", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
         Assert.Equal("BLOCK", result.Action);
         Assert.Equal("apache", result.Source);
     }
@@ -94,7 +94,10 @@ public class ApacheParserTests
         var result = _parser.Parse(MakeLine(line));
 
         Assert.NotNull(result);
-        Assert.Equal("::1", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
+        Assert.Equal("localhost", result.SourceIp);
         Assert.Equal("HTTP GET", result.Protocol);
         Assert.Equal(80, result.Port);
     }
