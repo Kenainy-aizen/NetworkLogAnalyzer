@@ -33,11 +33,13 @@ builder.Services.AddScoped<ILogParser, FirewalldParser>();
 
 builder.Services.AddScoped<IDetectionRule, SshBruteForceRule>();
 builder.Services.AddScoped<IDetectionRule, PortScanRule>();
+builder.Services.AddScoped<IDetectionRule, FtpBruteForceRule>();
 builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();
 builder.Services.AddHostedService<NginxLogCollector>();
 builder.Services.AddHostedService<ApacheLogCollector>();
+builder.Services.AddHostedService<VsftpdLogCollector>();
 
 builder.Services.AddSignalR();
 

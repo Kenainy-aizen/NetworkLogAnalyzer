@@ -7,16 +7,16 @@ using Storage.Repositories;
 
 namespace Collector;
 
-public class NginxLogCollector : BackgroundService
+public class VsftpdLogCollector : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly ILogger<NginxLogCollector> _logger;
+    private readonly ILogger<VsftpdLogCollector> _logger;
 
-    private const string LogPath = "/var/log/nginx/access.log";
+    private const string LogPath = "/var/log/vsftpd.log";
 
-    public NginxLogCollector(
+    public VsftpdLogCollector(
         IServiceScopeFactory scopeFactory,
-        ILogger<NginxLogCollector> logger)
+        ILogger<VsftpdLogCollector> logger)
     {
         _scopeFactory = scopeFactory;
         _logger = logger;
@@ -26,7 +26,7 @@ public class NginxLogCollector : BackgroundService
     {
         if (!File.Exists(LogPath))
         {
-            _logger.LogWarning("Nginx log non trouvé : {Path}. Collector Nginx désactivé.", LogPath);
+            _logger.LogWarning("vsftpd log non trouvé : {Path}. Collector FTP désactivé.", LogPath);
             return;
         }
 
@@ -36,11 +36,11 @@ public class NginxLogCollector : BackgroundService
             stream.Seek(0, SeekOrigin.End);
             using var reader = new StreamReader(stream);
 
-            _logger.LogInformation("Collector Nginx démarré : surveillance de {Path}", LogPath);
+            _logger.LogInformation("Collector FTP démarré : surveillance de {Path}", LogPath);
 
-            using var scope = _scopeFactory.CreateScope();
+            using var scope  = _scopeFactory.CreateScope();
             var repository   = scope.ServiceProvider.GetRequiredService<IEventRepository>();
-            var nginxParser  = new NginxParser();
+            var parser       = new VsftpdParser();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -57,13 +57,13 @@ public class NginxLogCollector : BackgroundService
                 var rawLine = new RawLogLine
                 {
                     Content    = line,
-                    Source     = "nginx",
+                    Source     = "vsftpd",
                     ReceivedAt = DateTime.UtcNow,
                 };
 
-                if (nginxParser.CanParse(line))
+                if (parser.CanParse(line))
                 {
-                    var networkEvent = nginxParser.Parse(rawLine);
+                    var networkEvent = parser.Parse(rawLine);
                     if (networkEvent is not null)
                         await repository.AddAsync(networkEvent);
                 }
@@ -73,12 +73,12 @@ public class NginxLogCollector : BackgroundService
         {
             _logger.LogWarning(
                 "Permission refusée pour lire {Path}. " +
-                "Lance : sudo chmod 644 {Path} ou sudo usermod -aG http {User}",
-                LogPath, LogPath, Environment.UserName);
+                "Lance : sudo chmod 644 {Path}",
+                LogPath, LogPath);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Erreur dans le Collector Nginx");
+            _logger.LogError(ex, "Erreur dans le Collector vsftpd");
         }
     }
 }
