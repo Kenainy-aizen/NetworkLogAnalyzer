@@ -29,6 +29,7 @@ builder.Services.AddScoped<IAnalysisTrigger, AnalysisTrigger>();
 
 builder.Services.AddScoped<ILogParser, JournalParser>();
 builder.Services.AddScoped<ILogParser, IptablesParser>();
+builder.Services.AddScoped<ILogParser, PamParser>();
 builder.Services.AddScoped<ILogParser, FirewalldParser>();
 
 builder.Services.AddScoped<IDetectionRule, SshBruteForceRule>();
