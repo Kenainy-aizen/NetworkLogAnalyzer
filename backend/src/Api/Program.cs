@@ -40,6 +40,7 @@ builder.Services.AddHostedService<CollectorBackgroundService>();
 builder.Services.AddHostedService<NginxLogCollector>();
 builder.Services.AddHostedService<ApacheLogCollector>();
 builder.Services.AddHostedService<VsftpdLogCollector>();
+builder.Services.AddHostedService<Fail2banLogCollector>();
 
 builder.Services.AddSignalR();
 
