@@ -51,8 +51,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+// Ne pas appeler EnsureCreated en mode test (InMemory + SQLite ne peuvent coexister)
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 }
@@ -64,3 +66,5 @@ app.MapControllers();
 app.MapHub<Api.Hubs.LogHub>("/hubs/logs");
 
 app.Run();
+
+public partial class Program { }

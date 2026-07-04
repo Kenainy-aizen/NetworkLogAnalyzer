@@ -67,9 +67,11 @@ public class EventRepository : IEventRepository
 
     public async Task<Dictionary<string, int>> GetStatsAsync()
     {
-        return await _db.NetworkEvents
+        // ToListAsync() d'abord pour compatibilité avec InMemory (tests)
+        var events = await _db.NetworkEvents.ToListAsync();
+        return events
             .GroupBy(e => e.Severity)
-            .ToDictionaryAsync(
+            .ToDictionary(
                 g => g.Key,
                 g => g.Count()
             );
