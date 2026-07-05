@@ -18,16 +18,22 @@ public class EventsController : ControllerBase
         _analysisTrigger = analysisTrigger;
     }
 
+    // GET /api/events?severity=WARNING&sourceIp=1.2.3.4&page=1&pageSize=20
     [HttpGet]
     public async Task<IActionResult> GetAll(
         [FromQuery] string? severity,
         [FromQuery] string? sourceIp,
-        [FromQuery] int limit = 100)
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20)
     {
-        var events = await _repo.GetAllAsync(severity, sourceIp, limit);
-        return Ok(events);
+        if (page < 1) page = 1;
+        if (pageSize < 1 || pageSize > 100) pageSize = 20;
+
+        var result = await _repo.GetAllAsync(severity, sourceIp, page, pageSize);
+        return Ok(result);
     }
 
+    // GET /api/events/5
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -36,6 +42,7 @@ public class EventsController : ControllerBase
         return Ok(ev);
     }
 
+    // GET /api/events/stats
     [HttpGet("stats")]
     public async Task<IActionResult> GetStats()
     {
@@ -43,6 +50,7 @@ public class EventsController : ControllerBase
         return Ok(stats);
     }
 
+    // POST /api/events
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] NetworkEvent networkEvent)
     {

@@ -6,10 +6,11 @@ public interface IEventRepository
 {
     Task AddAsync(NetworkEvent networkEvent);
 
-    Task<IEnumerable<NetworkEvent>> GetAllAsync(
+    Task<PagedResult<NetworkEvent>> GetAllAsync(
         string? severity = null,
         string? sourceIp = null,
-        int limit = 100
+        int page = 1,
+        int pageSize = 20
     );
 
     Task<NetworkEvent?> GetByIdAsync(int id);

@@ -31,10 +31,11 @@ public class EventRepository : IEventRepository
             await _analysisTrigger.TriggerAnalysisAsync(networkEvent);
     }
 
-    public async Task<IEnumerable<NetworkEvent>> GetAllAsync(
+    public async Task<PagedResult<NetworkEvent>> GetAllAsync(
         string? severity = null,
         string? sourceIp = null,
-        int limit = 100)
+        int page = 1,
+        int pageSize = 20)
     {
         var query = _db.NetworkEvents.AsQueryable();
 
@@ -43,7 +44,6 @@ public class EventRepository : IEventRepository
 
         if (!string.IsNullOrEmpty(sourceIp))
         {
-            // "localhost" → chercher les IPs locales : vide, "localhost", "127.0.0.1", "::1"
             if (sourceIp == "localhost")
                 query = query.Where(e =>
                     e.SourceIp == "" ||
@@ -54,10 +54,21 @@ public class EventRepository : IEventRepository
                 query = query.Where(e => e.SourceIp == sourceIp);
         }
 
-        return await query
+        var totalCount = await query.CountAsync();
+
+        var items = await query
             .OrderByDescending(e => e.Timestamp)
-            .Take(limit)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
+
+        return new PagedResult<NetworkEvent>
+        {
+            Items     = items,
+            TotalCount = totalCount,
+            Page      = page,
+            PageSize  = pageSize,
+        };
     }
 
     public async Task<NetworkEvent?> GetByIdAsync(int id)
@@ -67,13 +78,9 @@ public class EventRepository : IEventRepository
 
     public async Task<Dictionary<string, int>> GetStatsAsync()
     {
-        // ToListAsync() d'abord pour compatibilité avec InMemory (tests)
         var events = await _db.NetworkEvents.ToListAsync();
         return events
             .GroupBy(e => e.Severity)
-            .ToDictionary(
-                g => g.Key,
-                g => g.Count()
-            );
+            .ToDictionary(g => g.Key, g => g.Count());
     }
 }

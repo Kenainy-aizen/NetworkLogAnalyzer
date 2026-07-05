@@ -10,7 +10,6 @@ using Xunit;
 
 namespace Tests.Integration;
 
-// Chaque test crée sa propre factory avec une base isolée
 public class EventsControllerTests
 {
     private HttpClient CreateClient()
@@ -20,10 +19,8 @@ public class EventsControllerTests
         var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
-                
                 builder.ConfigureServices(services =>
                 {
-                    // Supprimer tout ce qui touche EF Core
                     var toRemove = services
                         .Where(d =>
                             d.ServiceType.FullName != null && (
@@ -35,11 +32,9 @@ public class EventsControllerTests
                     foreach (var d in toRemove)
                         services.Remove(d);
 
-                    // Base InMemory isolée pour ce test
                     services.AddDbContext<AppDbContext>(options =>
                         options.UseInMemoryDatabase(dbName));
 
-                    // Désactiver les collectors
                     var hosted = services
                         .Where(d => d.ServiceType == typeof(IHostedService))
                         .ToList();
@@ -51,8 +46,6 @@ public class EventsControllerTests
         return factory.CreateClient();
     }
 
-    // ── GET /api/events ───────────────────────────────────────
-
     [Fact]
     public async Task GetEvents_EmptyDb_ReturnsEmptyList()
     {
@@ -60,9 +53,10 @@ public class EventsControllerTests
         var response = await client.GetAsync("/api/events");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        var events = await response.Content.ReadFromJsonAsync<List<NetworkEvent>>();
-        Assert.NotNull(events);
-        Assert.Empty(events);
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
+        Assert.NotNull(result);
+        Assert.Empty(result.Items);
+        Assert.Equal(0, result.TotalCount);
     }
 
     [Fact]
@@ -72,13 +66,12 @@ public class EventsControllerTests
         await CreateEvent(client, "192.168.1.1", "SSH", "BLOCK", "WARNING");
 
         var response = await client.GetAsync("/api/events");
-        var events = await response.Content.ReadFromJsonAsync<List<NetworkEvent>>();
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
 
-        Assert.NotNull(events);
-        Assert.NotEmpty(events);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result.Items);
+        Assert.Equal(1, result.TotalCount);
     }
-
-    // ── GET /api/events?severity=X ───────────────────────────
 
     [Fact]
     public async Task GetEvents_FilterBySeverity_ReturnsOnlyMatching()
@@ -89,10 +82,10 @@ public class EventsControllerTests
         await CreateEvent(client, "3.3.3.3", "SUDO", "ALLOW", "INFO");
 
         var response = await client.GetAsync("/api/events?severity=WARNING");
-        var events = await response.Content.ReadFromJsonAsync<List<NetworkEvent>>();
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
 
-        Assert.NotNull(events);
-        Assert.All(events, e => Assert.Equal("WARNING", e.Severity));
+        Assert.NotNull(result);
+        Assert.All(result.Items, e => Assert.Equal("WARNING", e.Severity));
     }
 
     [Fact]
@@ -103,13 +96,49 @@ public class EventsControllerTests
         await CreateEvent(client, "10.0.0.2", "SSH", "BLOCK", "WARNING");
 
         var response = await client.GetAsync("/api/events?sourceIp=10.0.0.1");
-        var events = await response.Content.ReadFromJsonAsync<List<NetworkEvent>>();
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
 
-        Assert.NotNull(events);
-        Assert.All(events, e => Assert.Equal("10.0.0.1", e.SourceIp));
+        Assert.NotNull(result);
+        Assert.All(result.Items, e => Assert.Equal("10.0.0.1", e.SourceIp));
     }
 
-    // ── GET /api/events/{id} ──────────────────────────────────
+    [Fact]
+    public async Task GetEvents_Pagination_ReturnsCorrectPage()
+    {
+        var client = CreateClient();
+
+        // Insérer 5 événements
+        for (int i = 1; i <= 5; i++)
+            await CreateEvent(client, $"10.0.0.{i}", "SSH", "BLOCK", "WARNING");
+
+        // Page 1 avec pageSize=2
+        var response = await client.GetAsync("/api/events?page=1&pageSize=2");
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
+
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Items.Count());
+        Assert.Equal(5, result.TotalCount);
+        Assert.Equal(3, result.TotalPages);
+        Assert.True(result.HasNext);
+        Assert.False(result.HasPrevious);
+    }
+
+    [Fact]
+    public async Task GetEvents_Pagination_SecondPage()
+    {
+        var client = CreateClient();
+
+        for (int i = 1; i <= 5; i++)
+            await CreateEvent(client, $"10.0.0.{i}", "SSH", "BLOCK", "WARNING");
+
+        var response = await client.GetAsync("/api/events?page=2&pageSize=2");
+        var result = await response.Content.ReadFromJsonAsync<PagedResult<NetworkEvent>>();
+
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Items.Count());
+        Assert.True(result.HasNext);
+        Assert.True(result.HasPrevious);
+    }
 
     [Fact]
     public async Task GetEventById_ExistingId_ReturnsEvent()
@@ -134,8 +163,6 @@ public class EventsControllerTests
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
-    // ── GET /api/events/stats ─────────────────────────────────
-
     [Fact]
     public async Task GetStats_ReturnsCorrectCounts()
     {
@@ -154,8 +181,6 @@ public class EventsControllerTests
         Assert.True(stats.ContainsKey("CRITICAL"));
         Assert.Equal(1, stats["CRITICAL"]);
     }
-
-    // ── POST /api/events ──────────────────────────────────────
 
     [Fact]
     public async Task PostEvent_ValidEvent_Returns201()
@@ -206,8 +231,6 @@ public class EventsControllerTests
         Assert.Equal("FTP", fetched.Protocol);
         Assert.Equal("vsftpd", fetched.Source);
     }
-
-    // ── Helper ────────────────────────────────────────────────
 
     private static async Task<NetworkEvent?> CreateEvent(
         HttpClient client, string ip, string protocol, string action, string severity)
