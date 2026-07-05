@@ -155,3 +155,14 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/obj/Debug/net9.0/Api.sourcelink.json
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Npgsql.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
