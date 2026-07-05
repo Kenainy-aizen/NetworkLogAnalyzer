@@ -13,6 +13,7 @@ import HttpStatusChart from '../components/Charts/HttpStatusChart';
 import SourceBarChart from '../components/Charts/SourceBarChart';
 import DateRangeFilter from '../components/DateRangeFilter';
 import Pagination from '../components/Pagination';
+import SearchBar from '../components/SearchBar';
 import ToastNotification from '../components/ToastNotification';
 
 const PAGE_SIZE = 20;
@@ -24,26 +25,27 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('ALL');
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [dateRange, setDateRange] = useState(null);
   const { toasts, addToast, dismissToast } = useToast();
 
-  const loadEvents = useCallback(async (currentPage, currentFilter) => {
+  const loadEvents = useCallback(async (currentPage, currentFilter, currentSearch) => {
     try {
       const params = { page: currentPage, pageSize: PAGE_SIZE };
       if (currentFilter !== 'ALL') params.severity = currentFilter;
+      if (currentSearch) params.search = currentSearch;
 
       const data = await getEvents(params);
       setPagedResult(data);
       setError(null);
     } catch (err) {
-      setError("Impossible de contacter le backend. Vérifie qu'il tourne sur le port 5000.");
+      setError("Impossible de contacter le backend.");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  // Charger tous les événements pour les graphes (sans pagination)
   const loadAllForCharts = useCallback(async () => {
     try {
       const data = await getEvents({ page: 1, pageSize: 500 });
@@ -52,37 +54,29 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    loadEvents(page, filter);
+    loadEvents(page, filter, search);
     loadAllForCharts();
-  }, [page, filter]);
+  }, [page, filter, search]);
 
   const handleNewEvent = useCallback((newEvent) => {
     setAllEvents(prev => [newEvent, ...prev].slice(0, 500));
     if (newEvent.severity === 'CRITICAL') addToast(newEvent);
-    // Recharger la page courante pour voir le nouvel événement
-    loadEvents(page, filter);
-  }, [page, filter, addToast, loadEvents]);
+    loadEvents(1, filter, search);
+    setPage(1);
+  }, [filter, search, addToast, loadEvents]);
 
   const connected = useSignalR(handleNewEvent);
 
-  const handleFilterChange = (f) => {
-    setFilter(f);
-    setPage(1);
-  };
+  const handleFilterChange = (f) => { setFilter(f); setPage(1); };
+  const handleSearchChange = (s) => { setSearch(s); setPage(1); };
 
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Filtre date côté client (sur les graphes uniquement)
   const dateFilteredEvents = useMemo(() => {
     if (!dateRange) return allEvents;
     const cutoff = new Date(Date.now() - dateRange * 60 * 1000);
     return allEvents.filter(e => new Date(e.timestamp) >= cutoff);
   }, [allEvents, dateRange]);
 
-  const events = pagedResult?.items ?? [];
+  const events     = pagedResult?.items ?? [];
   const totalPages = pagedResult?.totalPages ?? 1;
   const totalCount = pagedResult?.totalCount ?? 0;
 
@@ -102,7 +96,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="mb-4 flex items-center rounded border border-zinc-800 bg-zinc-900 px-4 py-2.5">
+      <div className="mb-4 flex items-center gap-3 rounded border border-zinc-800 bg-zinc-900 px-4 py-2.5">
         <DateRangeFilter value={dateRange} onChange={setDateRange} />
       </div>
 
@@ -135,14 +129,9 @@ export default function Dashboard() {
       </div>
 
       <div className="overflow-hidden rounded border border-zinc-800 bg-zinc-900">
-        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3 text-sm font-medium">
-          <span>
-            Événements réseau
-            <span className="ml-2 text-xs text-zinc-500">
-              ({totalCount} au total)
-            </span>
-          </span>
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
+          <SearchBar value={search} onChange={handleSearchChange} />
+          <div className="flex items-center gap-2 shrink-0">
             {['ALL', 'INFO', 'WARNING', 'CRITICAL'].map((f) => (
               <button
                 key={f}
@@ -166,17 +155,30 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {search && (
+          <div className="border-b border-zinc-800 bg-zinc-900/50 px-4 py-2 text-xs text-zinc-500">
+            {totalCount} résultat{totalCount > 1 ? 's' : ''} pour
+            <span className="ml-1 font-mono text-blue-400">"{search}"</span>
+            <button
+              onClick={() => handleSearchChange('')}
+              className="ml-2 text-zinc-600 hover:text-zinc-400"
+            >
+              effacer
+            </button>
+          </div>
+        )}
+
         {loading ? (
           <div className="py-16 text-center text-sm text-zinc-500">Chargement...</div>
+        ) : events.length === 0 ? (
+          <div className="py-16 text-center text-sm text-zinc-500">
+            {search ? `Aucun résultat pour "${search}"` : 'Aucun événement.'}
+          </div>
         ) : (
           <EventTable events={events} onIpClick={(ip) => navigate(`/ip/${ip}`)} />
         )}
 
-        <Pagination
-          page={page}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
       </div>
 
       <ToastNotification toasts={toasts} onDismiss={dismissToast} />

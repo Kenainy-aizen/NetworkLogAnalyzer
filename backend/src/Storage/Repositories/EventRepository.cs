@@ -34,8 +34,9 @@ public class EventRepository : IEventRepository
     public async Task<PagedResult<NetworkEvent>> GetAllAsync(
         string? severity = null,
         string? sourceIp = null,
-        int page = 1,
-        int pageSize = 20)
+        string? search   = null,
+        int page         = 1,
+        int pageSize     = 20)
     {
         var query = _db.NetworkEvents.AsQueryable();
 
@@ -54,6 +55,18 @@ public class EventRepository : IEventRepository
                 query = query.Where(e => e.SourceIp == sourceIp);
         }
 
+        if (!string.IsNullOrEmpty(search))
+        {
+            var s = search.ToLower();
+            query = query.Where(e =>
+                e.RawData.ToLower().Contains(s)     ||
+                e.SourceIp.ToLower().Contains(s)    ||
+                e.Protocol.ToLower().Contains(s)    ||
+                e.Action.ToLower().Contains(s)      ||
+                e.Source.ToLower().Contains(s)
+            );
+        }
+
         var totalCount = await query.CountAsync();
 
         var items = await query
@@ -64,10 +77,10 @@ public class EventRepository : IEventRepository
 
         return new PagedResult<NetworkEvent>
         {
-            Items     = items,
+            Items      = items,
             TotalCount = totalCount,
-            Page      = page,
-            PageSize  = pageSize,
+            Page       = page,
+            PageSize   = pageSize,
         };
     }
 

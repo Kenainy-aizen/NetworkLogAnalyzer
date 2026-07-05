@@ -7,13 +7,14 @@ const api = axios.create({
 });
 
 export const getEvents = async (filters = {}) => {
-  const { severity, sourceIp, page = 1, pageSize = 20 } = filters;
+  const { severity, sourceIp, search, page = 1, pageSize = 20 } = filters;
   const params = { page, pageSize };
   if (severity) params.severity = severity;
   if (sourceIp) params.sourceIp = sourceIp;
+  if (search) params.search = search;
 
   const response = await api.get("/events", { params });
-  return response.data; // PagedResult { items, totalCount, page, pageSize, totalPages, hasNext, hasPrevious }
+  return response.data;
 };
 
 export const getEventsByIp = async (ip, page = 1, pageSize = 20) => {

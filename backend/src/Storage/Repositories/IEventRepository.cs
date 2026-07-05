@@ -9,8 +9,9 @@ public interface IEventRepository
     Task<PagedResult<NetworkEvent>> GetAllAsync(
         string? severity = null,
         string? sourceIp = null,
-        int page = 1,
-        int pageSize = 20
+        string? search   = null,
+        int page         = 1,
+        int pageSize     = 20
     );
 
     Task<NetworkEvent?> GetByIdAsync(int id);
