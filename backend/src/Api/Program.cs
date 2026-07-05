@@ -20,8 +20,14 @@ builder.Services.AddCors(options =>
     });
 });
 
+var dbProvider = builder.Configuration["DatabaseProvider"] ?? "PostgreSQL";
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    if (dbProvider == "SQLite")
+        options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
+    else
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<INotifier, SignalRNotifier>();
