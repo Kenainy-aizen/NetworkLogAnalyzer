@@ -17,4 +17,6 @@ public interface IEventRepository
     Task<NetworkEvent?> GetByIdAsync(int id);
 
     Task<Dictionary<string, int>> GetStatsAsync();
+
+    Task<Statistics> GetStatisticsAsync();
 }

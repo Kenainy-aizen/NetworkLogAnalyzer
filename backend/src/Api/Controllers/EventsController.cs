@@ -18,7 +18,6 @@ public class EventsController : ControllerBase
         _analysisTrigger = analysisTrigger;
     }
 
-    // GET /api/events?search=fakeuser&severity=WARNING&page=1&pageSize=20
     [HttpGet]
     public async Task<IActionResult> GetAll(
         [FromQuery] string? severity,
@@ -46,6 +45,14 @@ public class EventsController : ControllerBase
     public async Task<IActionResult> GetStats()
     {
         var stats = await _repo.GetStatsAsync();
+        return Ok(stats);
+    }
+
+    // GET /api/events/statistics
+    [HttpGet("statistics")]
+    public async Task<IActionResult> GetStatistics()
+    {
+        var stats = await _repo.GetStatisticsAsync();
         return Ok(stats);
     }
 

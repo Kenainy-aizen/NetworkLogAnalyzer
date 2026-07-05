@@ -83,7 +83,10 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-zinc-950 px-7 py-5 text-zinc-300">
       <div className="mb-5 flex items-center justify-between">
-        <h1 className="text-lg font-medium text-white">Network log analyzer</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-lg font-medium text-white">Network log analyzer</h1>
+          <a href="/stats" className="rounded border border-zinc-800 px-2.5 py-1 text-xs text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 transition-colors">📊 Statistiques</a>
+        </div>
         <div className="flex items-center rounded border border-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
           <span className={`mr-1.5 inline-block h-2 w-2 rounded-full ${connected ? 'animate-pulse bg-green-500' : 'bg-red-500'}`}></span>
           {connected ? 'En direct' : 'Déconnecté'}

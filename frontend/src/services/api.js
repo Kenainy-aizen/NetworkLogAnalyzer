@@ -30,3 +30,8 @@ export const getStats = async () => {
 };
 
 export default api;
+
+export const getStatistics = async () => {
+  const response = await api.get("/events/statistics");
+  return response.data;
+};

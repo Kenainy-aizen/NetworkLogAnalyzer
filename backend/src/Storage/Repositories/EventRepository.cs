@@ -59,10 +59,10 @@ public class EventRepository : IEventRepository
         {
             var s = search.ToLower();
             query = query.Where(e =>
-                e.RawData.ToLower().Contains(s)     ||
-                e.SourceIp.ToLower().Contains(s)    ||
-                e.Protocol.ToLower().Contains(s)    ||
-                e.Action.ToLower().Contains(s)      ||
+                e.RawData.ToLower().Contains(s)  ||
+                e.SourceIp.ToLower().Contains(s) ||
+                e.Protocol.ToLower().Contains(s) ||
+                e.Action.ToLower().Contains(s)   ||
                 e.Source.ToLower().Contains(s)
             );
         }
@@ -95,5 +95,74 @@ public class EventRepository : IEventRepository
         return events
             .GroupBy(e => e.Severity)
             .ToDictionary(g => g.Key, g => g.Count());
+    }
+
+    public async Task<Statistics> GetStatisticsAsync()
+    {
+        var events = await _db.NetworkEvents.ToListAsync();
+        var now    = DateTime.UtcNow;
+
+        return new Statistics
+        {
+            TotalEvents  = events.Count,
+            TotalBlocked = events.Count(e => e.Action == "BLOCK"),
+            TotalAllowed = events.Count(e => e.Action == "ALLOW"),
+            TotalCritical = events.Count(e => e.Severity == "CRITICAL"),
+            TotalWarning  = events.Count(e => e.Severity == "WARNING"),
+            TotalInfo     = events.Count(e => e.Severity == "INFO"),
+
+            // Top 10 IPs sources
+            TopSourceIps = events
+                .Where(e => !string.IsNullOrEmpty(e.SourceIp))
+                .GroupBy(e => e.SourceIp)
+                .OrderByDescending(g => g.Count())
+                .Take(10)
+                .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
+                .ToList(),
+
+            // Top 10 ports ciblés
+            TopPorts = events
+                .Where(e => e.Port.HasValue)
+                .GroupBy(e => e.Port!.Value.ToString())
+                .OrderByDescending(g => g.Count())
+                .Take(10)
+                .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
+                .ToList(),
+
+            // Événements par protocole
+            EventsByProtocol = events
+                .GroupBy(e => e.Protocol)
+                .OrderByDescending(g => g.Count())
+                .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
+                .ToList(),
+
+            // Événements par source de log
+            EventsBySource = events
+                .GroupBy(e => e.Source)
+                .OrderByDescending(g => g.Count())
+                .Select(g => new KeyValuePair<string, int>(g.Key, g.Count()))
+                .ToList(),
+
+            // Activité par heure de la journée (0-23)
+            EventsByHour = Enumerable.Range(0, 24)
+                .Select(h => new KeyValuePair<string, int>(
+                    $"{h:D2}h",
+                    events.Count(e => e.Timestamp.Hour == h)
+                ))
+                .ToList(),
+
+            // Événements par jour (7 derniers jours)
+            EventsByDay = Enumerable.Range(0, 7)
+                .Select(d =>
+                {
+                    var date = now.AddDays(-d).Date;
+                    return new KeyValuePair<string, int>(
+                        date.ToString("dd/MM"),
+                        events.Count(e => e.Timestamp.Date == date)
+                    );
+                })
+                .Reverse()
+                .ToList(),
+        };
     }
 }
