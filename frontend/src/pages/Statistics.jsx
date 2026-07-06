@@ -1,3 +1,4 @@
+import { exportStatsToPdf } from '../utils/exportPdf';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStatistics } from '../services/api';
@@ -75,6 +76,13 @@ export default function Statistics() {
           ← Retour
         </button>
         <h1 className="text-lg font-medium text-white">Statistiques</h1>
+        <button
+          onClick={() => exportStatsToPdf(stats)}
+          disabled={!stats}
+          className="ml-auto rounded border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors disabled:opacity-40"
+        >
+          ↓ Export PDF
+        </button>
       </div>
 
       {/* Cartes résumé */}

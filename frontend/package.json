@@ -13,6 +13,8 @@
     "@microsoft/signalr": "^10.0.0",
     "@tailwindcss/vite": "^4.3.2",
     "axios": "^1.18.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
