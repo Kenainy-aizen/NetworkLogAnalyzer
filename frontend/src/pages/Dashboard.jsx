@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { getEvents } from '../services/api';
 import { useSignalR } from '../hooks/useSignalR';
 import { useToast } from '../hooks/useToast';
@@ -85,7 +85,7 @@ export default function Dashboard() {
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <h1 className="text-lg font-medium text-white">Network log analyzer</h1>
-          <a href="/stats" className="rounded border border-zinc-800 px-2.5 py-1 text-xs text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 transition-colors">📊 Statistiques</a>
+          <Link to="/stats" className="rounded border border-zinc-800 px-2.5 py-1 text-xs text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 transition-colors">📊 Statistiques</Link>
         </div>
         <div className="flex items-center rounded border border-zinc-800 px-2.5 py-1 text-xs text-zinc-400">
           <span className={`mr-1.5 inline-block h-2 w-2 rounded-full ${connected ? 'animate-pulse bg-green-500' : 'bg-red-500'}`}></span>
