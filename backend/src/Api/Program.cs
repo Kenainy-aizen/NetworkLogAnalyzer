@@ -41,6 +41,8 @@ builder.Services.AddScoped<ILogParser, FirewalldParser>();
 builder.Services.AddScoped<IDetectionRule, SshBruteForceRule>();
 builder.Services.AddScoped<IDetectionRule, PortScanRule>();
 builder.Services.AddScoped<IDetectionRule, FtpBruteForceRule>();
+builder.Services.AddScoped<IDetectionRule, HttpBruteForceRule>();
+builder.Services.AddScoped<IDetectionRule, HttpFloodRule>();
 builder.Services.AddScoped<AnalyzerService>();
 
 builder.Services.AddHostedService<CollectorBackgroundService>();

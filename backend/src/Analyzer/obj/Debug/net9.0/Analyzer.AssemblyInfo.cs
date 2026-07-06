@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Analyzer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46243aac9b14681cbeb4ccc18b1dd1da8a883e17")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33d4c7d243684ba57ce32a0b72f35fb07dbfa931")]
 [assembly: System.Reflection.AssemblyProductAttribute("Analyzer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Analyzer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
