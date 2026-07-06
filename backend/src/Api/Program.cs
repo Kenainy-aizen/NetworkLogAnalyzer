@@ -24,9 +24,20 @@ var dbProvider = builder.Configuration["DatabaseProvider"] ?? "PostgreSQL";
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (dbProvider == "SQLite")
+    {
         options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
+    }
     else
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    {
+        // Le mot de passe vient de la variable d'environnement DB_PASSWORD
+        // jamais du fichier de configuration
+        var baseConnStr = builder.Configuration.GetConnectionString("DefaultConnection");
+        var dbPassword  = Environment.GetEnvironmentVariable("DB_PASSWORD")
+                          ?? throw new InvalidOperationException(
+                              "La variable d'environnement DB_PASSWORD est requise.");
+        var fullConnStr = $"{baseConnStr};Password={dbPassword}";
+        options.UseNpgsql(fullConnStr);
+    }
 });
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();

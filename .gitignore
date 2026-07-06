@@ -93,3 +93,5 @@ Desktop.ini
 *.tmp
 *.bak
 *.orig
+.env
+*.env
