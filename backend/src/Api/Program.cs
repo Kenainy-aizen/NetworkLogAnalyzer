@@ -1,3 +1,4 @@
+using Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Storage;
 using Storage.Repositories;
@@ -62,6 +63,7 @@ builder.Services.AddHostedService<ApacheLogCollector>();
 builder.Services.AddHostedService<VsftpdLogCollector>();
 builder.Services.AddHostedService<Fail2banLogCollector>();
 
+builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddSignalR();
 
 builder.Services.AddControllers();

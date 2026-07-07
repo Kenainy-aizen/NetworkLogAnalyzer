@@ -166,3 +166,6 @@
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Npgsql.dll
 /home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/MailKit.dll
+/home/kenainy/NetworkLogAnalyzer/backend/src/Api/bin/Debug/net9.0/MimeKit.dll

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "3XCD2/qIccA=",
+  "dgSpecHash": "wJfsBrmBfls=",
   "success": true,
   "projectFilePath": "/home/kenainy/NetworkLogAnalyzer/backend/src/Api/Api.csproj",
   "expectedPackageFiles": [
+    "/home/kenainy/.nuget/packages/bouncycastle.cryptography/2.5.0/bouncycastle.cryptography.2.5.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/mailkit/4.9.0/mailkit.4.9.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.aspnetcore.connections.abstractions/9.0.0/microsoft.aspnetcore.connections.abstractions.9.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.aspnetcore.openapi/9.0.17/microsoft.aspnetcore.openapi.9.0.17.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.aspnetcore.signalr.common/9.0.0/microsoft.aspnetcore.signalr.common.9.0.0.nupkg.sha512",
@@ -41,6 +43,7 @@
     "/home/kenainy/.nuget/packages/microsoft.extensions.options/9.0.1/microsoft.extensions.options.9.0.1.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.extensions.primitives/9.0.1/microsoft.extensions.primitives.9.0.1.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/mimekit/4.9.0/mimekit.4.9.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/mono.texttemplating/3.0.0/mono.texttemplating.3.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512",
     "/home/kenainy/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.4/npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
@@ -60,13 +63,26 @@
     "/home/kenainy/.nuget/packages/system.composition.hosting/7.0.0/system.composition.hosting.7.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.composition.runtime/7.0.0/system.composition.runtime.7.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.composition.typedparts/7.0.0/system.composition.typedparts.7.0.0.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/system.formats.asn1/8.0.1/system.formats.asn1.8.0.1.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.io.pipelines/7.0.0/system.io.pipelines.7.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/kenainy/.nuget/packages/system.security.cryptography.pkcs/8.0.1/system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.text.json/9.0.1/system.text.json.9.0.1.nupkg.sha512",
     "/home/kenainy/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
     "/home/kenainy/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.17/microsoft.aspnetcore.app.ref.9.0.17.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MailKit' 4.9.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "libraryId": "MailKit",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }
